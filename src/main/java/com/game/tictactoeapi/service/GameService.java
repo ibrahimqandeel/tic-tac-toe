@@ -13,7 +13,7 @@ public class GameService {
                 ++count;
                 if (count == cellNumber && gameBoard[i][j] == null) {
                     gameBoard[i][j] = expectedPlayer;
-                    return getGameResult(expectedPlayer, gameBoard);
+                    return checkGameStatus(expectedPlayer, gameBoard);
                 }
             }
         }
@@ -21,9 +21,8 @@ public class GameService {
         return "Cell already acquired. Choose another cell.";
     }
 
-    private String getGameResult(String playerName, String[][] gameBoard) {
-        if (checkRows(playerName, gameBoard)
-                || checkColumns(playerName, gameBoard)
+    private String checkGameStatus(String playerName, String[][] gameBoard) {
+        if (checkRowsAndColumns(playerName, gameBoard)
                 || checkDiagonals(playerName, gameBoard)) {
             return "Player " + playerName + " Won";
         } else {
@@ -39,20 +38,14 @@ public class GameService {
     }
 
     //check rows
-    private boolean checkRows(String playerName, String[][] gameBoard) {
+    private boolean checkRowsAndColumns(String playerName, String[][] gameBoard) {
         for (int i = 0; i < 3; i++) {
             if ((gameBoard[i][0] != null && gameBoard[i][0].equalsIgnoreCase(playerName))
                     && (gameBoard[i][1] != null && gameBoard[i][1].equalsIgnoreCase(playerName))
                     && (gameBoard[i][2] != null && gameBoard[i][2].equalsIgnoreCase(playerName))) {
                 return true;
             }
-        }
-        return false;
-    }
 
-    //check columns
-    private boolean checkColumns(String playerName, String[][] gameBoard) {
-        for (int i = 0; i < 3; i++) {
             if ((gameBoard[0][i] != null && gameBoard[0][i].equalsIgnoreCase(playerName))
                     && (gameBoard[1][i] != null && gameBoard[1][i].equalsIgnoreCase(playerName))
                     && (gameBoard[2][i] != null && gameBoard[2][i].equalsIgnoreCase(playerName))) {
